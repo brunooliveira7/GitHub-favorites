@@ -1,7 +1,7 @@
-<h1 align="center"> Focus Timer </h1>
+<h1 align="center"> GitHub Favorites </h1>
 
 <p align="center">
-GitHub Favorite é uma solução simples em que usuários podem criar uma lista personalizada dos perfis que mais admiram ou acompanham no GitHub. Site disponível em: 
+GitHub Favorites é uma solução simples em que usuários podem criar uma lista personalizada dos perfis que mais admiram ou acompanham no GitHub. Site disponível em: 
 </p>
 
 <p align="center">
