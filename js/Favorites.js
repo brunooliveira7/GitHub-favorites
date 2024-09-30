@@ -11,31 +11,20 @@ export class Favorites {
   }
   //carregar os dados
   load() {
-    //dados - array contendo objects
-    this.entries = [
-      {
-        login: "brunooliveira7",
-        name: "Bruno Oliveira",
-        public_repos: "76",
-        followers: "120000",
-      },
-      {
-        login: "maykbrito",
-        name: "Mayk Brito",
-        public_repos: "76",
-        followers: "120000",
-      },
-    ];
+    //transformando string em array
+    this.entries = JSON.parse(localStorage.getItem("@github-favorites:")) || [];
   }
 
   //deleta o user no upDate()
   delete(user) {
-    //para filtrar da lista de user e comparar se um é igual ao que vai ser passado(deletado)
+    //filtra do array de user e comparar se um é igual ao que vai ser passado(deletado)
     const filteredEntries = this.entries.filter(
       (entry) => entry.login !== user.login
     );
-
-    console.log(filteredEntries);
+    //coloca um novo array dentro do entries o filteredEntries
+    this.entries = filteredEntries;
+    //para mostar sem a linha deletada
+    this.upDate();
   }
 }
 
