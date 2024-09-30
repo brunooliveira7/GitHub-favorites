@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <script type="module" src="js/main.js" defer></script>
   </head>
   <body>
     <div id="app">
@@ -20,11 +21,7 @@
           <!--Para acessibilidade-vai sumir no CSS-->
           <label class="sr-only" for="input-search">GitHub user</label>
 
-          <input
-            id="input-search"
-            type="text"
-            placeholder="GitHub user"
-          />
+          <input id="input-search" type="text" placeholder="GitHub user" />
           <!--&plus;-caracter especial que substitui o +-->
           <button>&plus;</button>
         </div>
@@ -39,23 +36,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="user">
-              <img
-                src="https://github.com/brunooliveira7.png"
-                alt="Imagem de brunooliveira7"
-              />
-              <a href="https://github.com/brunooliveira7" target="_blank">
-                <p>Bruno Oliveira</p>
-                <span>brunooliveira7</span>
-              </a>
-            </td>
-            <td class="repositories">76</td>
-            <td class="followers">9589</td>
-            <td>
-              <button class="remove">&times;</button>
-            </td>
-          </tr>
+          
 
           <tr>
             <td class="user">
@@ -74,6 +55,7 @@
               <button class="remove">&times;</button>
             </td>
           </tr>
+
         </tbody>
       </table>
     </div>
