@@ -6,7 +6,7 @@ export class Favorites {
     this.root = document.querySelector(root);
     //até aqui os dados estão vazios
 
-    //aqui carrega os dados
+    //carrega os dados
     this.load();
   }
   //carregar os dados
@@ -26,6 +26,16 @@ export class Favorites {
         followers: "120000",
       },
     ];
+  }
+
+  //deleta o user no upDate()
+  delete(user) {
+    //para filtrar da lista de user e comparar se um é igual ao que vai ser passado(deletado)
+    const filteredEntries = this.entries.filter(
+      (entry) => entry.login !== user.login
+    );
+
+    console.log(filteredEntries);
   }
 }
 
@@ -56,13 +66,21 @@ export class FavoritesView extends Favorites {
       row.querySelector(
         ".user img"
       ).src = `https://github.com/${user.login}.png`;
-
       //mudar os outros dados(conforme obj do array)
       row.querySelector(".user img").alt = `Imagem de ${user.name}`;
       row.querySelector(".user p").textContent = user.name;
       row.querySelector(".user span").textContent = user.login;
       row.querySelector(".repositories").textContent = user.public_repos;
       row.querySelector(".followers").textContent = user.followers;
+
+      //evento no btn (recebe uma funct)- só uma vez melhor usar "onclick" do que "addEventListener"
+      row.querySelector(".remove").onclick = () => {
+        const isOk = confirm("Tem certeza que deseja deletar essa linha?");
+        if (isOk) {
+          //para deletar o user e permanecer deletado
+          this.delete(user);
+        }
+      };
 
       //para criar a alinha que foi criada (createRow()) e add na const row
       this.tbody.append(row);
