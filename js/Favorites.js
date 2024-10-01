@@ -1,3 +1,21 @@
+export class GithubUser {
+  //metodo que vai procurar o username
+  static seach(username) {
+    const endpoint = `https://api.github.com/users/${username}`;
+
+    //fech busca na internet - promessa que vai ser tranformada em JSON
+    //retorna o objeto direto do GitHub, por user
+    return fetch(endpoint)
+      .then((data) => data.json())
+      .then(({ login, name, public_repos, followers }) => ({
+        login,
+        name,
+        public_repos,
+        followers,
+      }));
+  }
+}
+
 //class com a lógica dos dados - como os dados serão estruturados
 export class Favorites {
   //o root é a #app
@@ -11,7 +29,8 @@ export class Favorites {
   }
   //carregar os dados
   load() {
-    //transformando string em array
+    //transformando string em array(obj) atraves do JSON - localStorage - guarda os dados(API do browser)
+    //nome da chave - @github-favorites:
     this.entries = JSON.parse(localStorage.getItem("@github-favorites:")) || [];
   }
 
