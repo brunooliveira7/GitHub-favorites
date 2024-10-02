@@ -1,7 +1,8 @@
 <h1 align="center"> GitHub Favorites </h1>
 
 <p align="center">
-GitHub Favorites é uma solução simples em que usuários podem criar uma lista personalizada dos perfis que mais admiram ou acompanham no GitHub. Site disponível em: 
+GitHub Favorites é uma solução simples em que usuários podem criar uma lista personalizada dos perfis que mais admiram ou acompanham no GitHub. Site disponível em: https://brunooliveira7.github.io/GitHub-favorites/
+target="_blank"
 </p>
 
 <p align="center">
