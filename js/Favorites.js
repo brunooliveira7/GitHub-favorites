@@ -39,10 +39,28 @@ export class Favorites {
     this.entries = JSON.parse(localStorage.getItem("@github-favorites:")) || [];
   }
 
-  //async/await - aguarda a promessa de procurar a procura do user
+  //quando carregar a app não perde tudo - salvar as entries no localstorage
+  //stringify - tranformar o obj no JS(array) para obj em JSON em string
+  save() {
+    localStorage.setItem("@github-favorites:", JSON.stringify(this.entries));
+  }
+
+  //async/await - aguarda a promessa de procurar o user
   async add(username) {
-    const user = await GithubUser.seach(username);
-    
+    //se tiver erro na promessa - user que não existe - tratamento de erro
+    try {
+      const user = await GithubUser.seach(username);
+      if (user.login === undefined) {
+        //throw - vomitar - disparar o erro
+        throw new Error("Usuário não encontrado!");
+      }
+      //pegar as entries e colocar nos user dentro do novo array espalhados- respeita imutabilidade
+      this.entries = [user, ...this.entries];
+      this.upDate();
+      this.save();
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   //deleta o user no upDate()
@@ -55,6 +73,7 @@ export class Favorites {
     this.entries = filteredEntries;
     //para mostar sem a linha deletada
     this.upDate();
+    this.save();
   }
 }
 
@@ -78,7 +97,7 @@ export class FavoritesView extends Favorites {
   onadd() {
     const addButton = this.root.querySelector(".search button");
     addButton.onclick = () => {
-      //pegando somente o value do obj input
+      //pegando somente o value do obj input digitado
       const { value } = this.root.querySelector(".search input");
       this.add(value);
     };
