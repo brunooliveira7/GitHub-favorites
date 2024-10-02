@@ -1,10 +1,11 @@
+//estruturando os dados buscados no GitHub
 export class GithubUser {
-  //metodo que vai procurar o username
+  //metodo que vai procurar o username, onde será pego o dado
   static seach(username) {
     const endpoint = `https://api.github.com/users/${username}`;
 
-    //fech busca na internet - promessa que vai ser tranformada em JSON
-    //retorna o objeto direto do GitHub, por user
+    //fech busca na internet - promessa de dados que vai ser tranformada em JSON
+    //retorna o objeto direto do GitHub, por user, pegando os dados necessários
     return fetch(endpoint)
       .then((data) => data.json())
       .then(({ login, name, public_repos, followers }) => ({
@@ -26,12 +27,22 @@ export class Favorites {
 
     //carrega os dados
     this.load();
+
+    //acessando direto o método sem new, pois tem static .User - é o fetch de dados (login, name...)
+    GithubUser.seach("brunooliveira7").then((user) => console.log(user));
   }
+
   //carregar os dados
   load() {
     //transformando string em array(obj) atraves do JSON - localStorage - guarda os dados(API do browser)
     //nome da chave - @github-favorites:
     this.entries = JSON.parse(localStorage.getItem("@github-favorites:")) || [];
+  }
+
+  //async/await - aguarda a promessa de procurar a procura do user
+  async add(username) {
+    const user = await GithubUser.seach(username);
+    
   }
 
   //deleta o user no upDate()
@@ -60,6 +71,17 @@ export class FavoritesView extends Favorites {
     this.tbody = this.root.querySelector("table tbody");
 
     this.upDate();
+
+    this.onadd();
+  }
+
+  onadd() {
+    const addButton = this.root.querySelector(".search button");
+    addButton.onclick = () => {
+      //pegando somente o value do obj input
+      const { value } = this.root.querySelector(".search input");
+      this.add(value);
+    };
   }
 
   upDate() {

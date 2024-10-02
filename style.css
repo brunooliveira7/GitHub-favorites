@@ -111,6 +111,7 @@ table th:last-child {
 table tr:nth-child(odd) {
   background-color: #ddd;
 }
+
 /*todas as linhas pares(even)*/
 table tr {
   background-color: #eee;
