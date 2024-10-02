@@ -1,21 +1,4 @@
-//estruturando os dados buscados no GitHub
-export class GithubUser {
-  //metodo que vai procurar o username, onde será pego o dado
-  static seach(username) {
-    const endpoint = `https://api.github.com/users/${username}`;
-
-    //fech busca na internet - promessa de dados que vai ser tranformada em JSON
-    //retorna o objeto direto do GitHub, por user, pegando os dados necessários
-    return fetch(endpoint)
-      .then((data) => data.json())
-      .then(({ login, name, public_repos, followers }) => ({
-        login,
-        name,
-        public_repos,
-        followers,
-      }));
-  }
-}
+import { GithubUser } from "./GithubUser.js";
 
 //class com a lógica dos dados - como os dados serão estruturados
 export class Favorites {
@@ -49,6 +32,15 @@ export class Favorites {
   async add(username) {
     //se tiver erro na promessa - user que não existe - tratamento de erro
     try {
+      //verificar se já existe para não lançar duas vezes
+      const userExists = this.entries.find((entry) => entry.login === username);
+
+      console.log(userExists);
+
+      if (userExists) {
+        throw new Error("Usuário já cadastrado")
+      }
+
       const user = await GithubUser.seach(username);
       if (user.login === undefined) {
         //throw - vomitar - disparar o erro
@@ -117,6 +109,7 @@ export class FavoritesView extends Favorites {
       ).src = `https://github.com/${user.login}.png`;
       //mudar os outros dados(conforme obj do array)
       row.querySelector(".user img").alt = `Imagem de ${user.name}`;
+      row.querySelector(".user a").href = `https://github.com/${user.login}`;
       row.querySelector(".user p").textContent = user.name;
       row.querySelector(".user span").textContent = user.login;
       row.querySelector(".repositories").textContent = user.public_repos;
