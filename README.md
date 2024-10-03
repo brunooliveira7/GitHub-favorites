@@ -22,7 +22,6 @@ Projeto desenvolvido com as seguintes tecnologias:
 
 - HTML e CSS
 - JavaScript
-- Node.js
 - Git e Github
 
 ## 💻 Projeto
